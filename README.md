@@ -11,3 +11,6 @@ mvn clean install jetty:run
 1. Open two separate browser windows (distinct websocket sessions)
 2. Assign different user names - after *Welcome,* prompt
 3. Play with messages from different users and watch "real-time" chat
+
+### Requirements
+JDK 7
