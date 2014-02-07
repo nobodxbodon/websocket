@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.apache.log4j.Logger;
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
@@ -17,6 +18,7 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 @WebSocket
 public class ChatWebSocket {
 
+	static Logger log = Logger.getLogger(ChatWebSocket.class.getName());
     private static List<ChatWebSocket> users = new CopyOnWriteArrayList<>();
     private static int usersVisited = 0;
     private RemoteEndpoint conn;
@@ -40,7 +42,7 @@ public class ChatWebSocket {
 
     @OnWebSocketMessage
     public void onText(Session session, String message) {
-        System.out.println("Message received:" + message);
+        log.info("Message received:" + message);
         String room = "";
         ChatMessage msg = null;
         ExtendedChatMessage emsg = null;
@@ -48,14 +50,13 @@ public class ChatWebSocket {
         	msg = ChatMessage.decode(message);
 			room = msg.getRoom();
 			if(!rooms.containsKey(this)){
-				System.out.println(msg.getSender()+" joins room: "+room);
+				log.info(msg.getSender()+" joins room: "+room);
 				rooms.put(this, room);
 			}
 			emsg = new ExtendedChatMessage(msg);
 			emsg.setUserNum(users.size());
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			log.error(e1);
 		}
         List<ChatWebSocket> usersInRoom = new ArrayList<ChatWebSocket>();
         for (ChatWebSocket user : users) {
@@ -70,7 +71,7 @@ public class ChatWebSocket {
             try {
             	userInRoom.conn.sendString(ChatMessage.encode(emsg));
             } catch (IOException e) {
-                e.printStackTrace();
+    			log.error(e);
             }
         }
     }

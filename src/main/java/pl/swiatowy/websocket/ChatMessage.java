@@ -3,12 +3,15 @@ package pl.swiatowy.websocket;
 import java.io.IOException;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 public class ChatMessage {
+	static Logger log = Logger.getLogger(
+			ChatMessage.class.getName());
 	private String message;
 	private String sender;
 	private String room;
@@ -56,14 +59,14 @@ public class ChatMessage {
 	public static ChatMessage decode(String message)  throws JsonParseException, JsonMappingException, IOException{
 		ChatMessage msg = new ObjectMapper().readValue(message, ChatMessage.class);
 		msg.setReceived(new Date());
-		System.out.println("decode to: "+msg);
+		log.info("decode to: "+msg);
         return msg;
 
 	}
 	
 	public static String encode(ChatMessage msg) throws JsonGenerationException, JsonMappingException, IOException{
 	    String message = new ObjectMapper().writeValueAsString(msg);
-	    System.out.println("encode to: "+message);
+	    log.info("encode to: "+message);
         return message;
 	    
 	}

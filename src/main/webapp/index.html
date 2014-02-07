@@ -96,7 +96,7 @@ body {
 				+ '</td></tr>');
 		$chatWindow.append($messageLine);
 		sentTime = 0;
-		$('.chat-wrapper h2').text('Chat # '+$nickName.val() + "@ "+msg.userInRoom +" in " + room + " ("+msg.userNum+" online, "+ msg.userVisited+" visited)");
+		$('.chat-wrapper h2').text('Chat # '+$nickName.val() + "@ "+msg.userInRoom +" in " + room + " ("+msg.userNum+" online, "+ msg.userVisited+" visited since last reboot)");
 	}
 	function sendMessage() {
 		sentTime = new Date();

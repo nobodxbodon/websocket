@@ -11,6 +11,8 @@
     <properties>
         <jetty.version>9.0.6.v20130930</jetty.version>
         <jackson.version>1.9.13</jackson.version>
+        <slf4j.version>1.6.6</slf4j.version>
+        <maven.version>3.1</maven.version>
     </properties>
 
     <dependencies>
@@ -29,6 +31,21 @@
 			<artifactId>jackson-mapper-asl</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        <dependency>
+        	<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -39,6 +56,12 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
+                	<systemproperties>
+				      <systemproperty>
+				     <name>log4j.configuration</name>
+				     <value>src/main/resources/log4j.properties</value>
+				      </systemproperty>
+				    </systemproperties>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webAppConfig>
                         <contextPath>/chat</contextPath>
@@ -49,6 +72,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.version}</version>
                 <configuration>
                     <fork>true</fork>
                     <meminitial>128m</meminitial>
