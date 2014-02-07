@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>hasCode.com - Java EE 7 Websocket Tutorial</title>
+<title>OpenChat</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="Micha Kops">
@@ -96,7 +96,7 @@ body {
 				+ '</td></tr>');
 		$chatWindow.append($messageLine);
 		sentTime = 0;
-		$('.chat-wrapper h2').text('Chat # '+$nickName.val() + "@" + room + "("+msg.userNum+")");
+		$('.chat-wrapper h2').text('Chat # '+$nickName.val() + "@ "+msg.userInRoom +" in " + room + " ("+msg.userNum+" online, "+ msg.userVisited+" visited)");
 	}
 	function sendMessage() {
 		sentTime = new Date();

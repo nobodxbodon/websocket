@@ -8,7 +8,8 @@ public class ExtendedChatMessage extends ChatMessage {
 		this.setReceived(msg.getReceived());
 		this.setRoom(msg.getRoom());
 	}
-	
+	private int userVisited;
+	private int userInRoom;
 	private int userNum;
 
 	public int getUserNum() {
@@ -17,5 +18,21 @@ public class ExtendedChatMessage extends ChatMessage {
 
 	public void setUserNum(int userNum) {
 		this.userNum = userNum;
+	}
+
+	public int getUserVisited() {
+		return userVisited;
+	}
+
+	public void setUserVisited(int userVisited) {
+		this.userVisited = userVisited;
+	}
+
+	public int getUserInRoom() {
+		return userInRoom;
+	}
+
+	public void setUserInRoom(int userInRoom) {
+		this.userInRoom = userInRoom;
 	}
 }

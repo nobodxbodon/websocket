@@ -1,6 +1,7 @@
 package pl.swiatowy.websocket;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 public class ChatWebSocket {
 
     private static List<ChatWebSocket> users = new CopyOnWriteArrayList<>();
+    private static int usersVisited = 0;
     private RemoteEndpoint conn;
     /**
      * keep room info for user. restrict one room for one user
@@ -27,6 +29,7 @@ public class ChatWebSocket {
     public void onOpen(Session session) {
         this.conn = session.getRemote();
         users.add(this);
+        usersVisited++;
     }
 
     @OnWebSocketClose
@@ -53,10 +56,18 @@ public class ChatWebSocket {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+        List<ChatWebSocket> usersInRoom = new ArrayList<ChatWebSocket>();
         for (ChatWebSocket user : users) {
+        	if(rooms.containsKey(user) && rooms.get(user).equals(room)){
+    			//get users in the room
+        		usersInRoom.add(user);
+        	}
+        }
+        emsg.setUserInRoom(usersInRoom.size());
+        emsg.setUserVisited(usersVisited);
+        for(ChatWebSocket userInRoom : usersInRoom){
             try {
-            	if(rooms.containsKey(user) && rooms.get(user).equals(room))
-            		user.conn.sendString(ChatMessage.encode(emsg));
+            	userInRoom.conn.sendString(ChatMessage.encode(emsg));
             } catch (IOException e) {
                 e.printStackTrace();
             }
