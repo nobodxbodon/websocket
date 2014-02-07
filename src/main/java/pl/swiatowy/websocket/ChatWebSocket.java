@@ -35,6 +35,7 @@ public class ChatWebSocket {
     @OnWebSocketClose
     public void onClose(int closeCode, String reason) {
         users.remove(this);
+        rooms.remove(this);
     }
 
     @OnWebSocketMessage

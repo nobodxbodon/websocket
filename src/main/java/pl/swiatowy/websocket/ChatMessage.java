@@ -5,7 +5,6 @@ import java.util.Date;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -62,7 +61,7 @@ public class ChatMessage {
 
 	}
 	
-	public static String encode(ExtendedChatMessage msg) throws JsonGenerationException, JsonMappingException, IOException{
+	public static String encode(ChatMessage msg) throws JsonGenerationException, JsonMappingException, IOException{
 	    String message = new ObjectMapper().writeValueAsString(msg);
 	    System.out.println("encode to: "+message);
         return message;

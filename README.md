@@ -16,6 +16,7 @@ mvn clean install jetty:run
 2. Assign different user names - after *Welcome,* prompt
 3. Play with messages from different users and watch "real-time" chat
 4. User numbers (in-room, online, history) shown on top
+5. Restriction: one room/conversation for one user
 
 ### Requirements
 JDK 7
